@@ -1,8 +1,7 @@
 import React from "react";
 import Form from 'react-bootstrap/Form';
-// import { useState } from 'react';
-
-import { ToggleButton, ButtonGroup } from "react-bootstrap";
+import FormQuestion from "./FormQuestion";
+import { Button } from "react-bootstrap";
 
 
 class StayIn extends React.Component {
@@ -10,61 +9,36 @@ class StayIn extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            selection: '1',
-            displayToggleFood: false,
-            displayToggleMovie: false,
+            foodOptions: ['Chinese', 'Pizza', 'French'],
+            movieOptions: ['Comedy', 'Drama', 'Action', 'Horror'],
         }
     }
 
-    setRadioValue = (eventTargeted) => {
-
-        let displayState = eventTargeted % 2 ? false : true
-
-        this.setState({
-            selection: eventTargeted,
-            displayToggleFood: displayState,
-        });
-        
+    handleFormSubmit = (event) => {
+        event.preventDefault();
     }
 
-
     render() {
-        const radios = [
-            { name: 'YES', value: '1' },
-            { name: 'NO', value: '2' },
-          ];
-
         return (
-            <Form>
-                    <div className="flex-container">
-                        <p>Are you planning a meal?</p>
-                        <ButtonGroup>
-                            {radios.map((radio, idx) => (
-                                <ToggleButton
-                                    key={idx}
-                                    id={`radio-${idx}`}
-                                    type="radio"
-                                    variant={idx % 2 ? 'outline-danger' : 'outline-success'}
-                                    name="radio"
-                                    value={radio.value}
-                                    checked={this.state.selection === radio.value}
-                                    onChange={(e) => this.setRadioValue(e.currentTarget.value)}
-                                >
-                                    {radio.name}
-                                </ToggleButton>
-                            ))}
-                        </ButtonGroup>
-                    </div>
-                <Form.Group className="mb-3">
-                    {/* <Form.Label>Disabled select menu</Form.Label> */}
-                    <Form.Select disabled={this.state.displayToggleFood}>
-                        <option>Select Cuisine</option>
-                        <option>Chinese</option>
-                        <option>Pizza</option>
-                        <option>French</option>
-                    </Form.Select>
-                </Form.Group>
+            <>
+            <Form onSubmit={this.handleFormSubmit}>
+                    <FormQuestion 
+                    qType = {'food'}
+                    prompt = {'Are you planning a meal?'}
+                    initialSelection = {'Select Cuisine'}
+                    selection = {this.state.foodOptions}
+                    />
+                    <FormQuestion 
+                    qType = {'movie'}
+                    prompt = {'Do you want to include a movie?'}
+                    initialSelection = {'Select Genre'}
+                    selection = {this.state.movieOptions}
+                    />
+                    <Button variant="primary" type="submit">PLAN DATE</Button>
             </Form>
+            <h1>test</h1>
+            </>
+
         );
     }
 }
