@@ -7,6 +7,7 @@ import StayIn from './components/StayIn';
 import Profile from './components/Profile';
 import Team from './components/Team';
 import Nav from './components/Nav';
+import Footer from './components/Footer';
 import Weather from './components/Weather';
 import Recipes from './components/Recipes';
 import { Button } from 'react-bootstrap';
@@ -114,9 +115,11 @@ class App extends React.Component {
               </>
               :
              <> <LoginButton />
-              <Nav /></>
+              <Nav />
+              </>
           }
         </Router>
+        <Footer className="footer" />
       </>
     )
   }
