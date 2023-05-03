@@ -24,6 +24,7 @@ class StayIn extends React.Component {
             selection: eventTargeted,
             displayToggleFood: displayState,
         });
+        
     }
 
 
