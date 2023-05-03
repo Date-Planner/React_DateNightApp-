@@ -1,0 +1,14 @@
+.navbar{
+    display: flex;
+    position: fixed;
+    bottom: 0%;
+    font-size: 2.7vh;
+    align-items: center;
+    text-align: center;
+}
+
+.headerDiv{
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+}

@@ -13,9 +13,9 @@ import { FaUsers } from "react-icons/fa";
 class Nav extends React.Component {
   render() {
     return (
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand>Date Night</Navbar.Brand>
-        <NavItem><Link to="home" style={{color: 'black'}} className="nav-link"><FaHome /></Link></NavItem>
+      <Navbar className = "navBar" collapseOnSelect expand="lg" bg="light" variant="dark">
+        <Navbar.Brand style={{color: 'black'}}>Date Night</Navbar.Brand>
+        <NavItem><Link to="/" style={{color: 'black'}} className="nav-link"><FaHome /></Link></NavItem>
         <NavItem><Link to="weather" style={{color: 'black'}} className="nav-link"><WiDayCloudy /></Link></NavItem>
         <NavItem><Link to="go-out" style={{color: 'black'}} className="nav-link">Going Out</Link></NavItem>
         <NavItem><Link to="stay-in" style={{color: 'black'}} className="nav-link">Staying In</Link></NavItem>
