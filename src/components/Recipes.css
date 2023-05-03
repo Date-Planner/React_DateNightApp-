@@ -13,6 +13,10 @@
     margin-bottom: 2rem;
   }
 
-  body {
+  .container {
     background-color: #f5f3e6;
+  }
+
+  .card {
+    margin-bottom: 1rem;
   }
