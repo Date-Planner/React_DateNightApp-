@@ -11,7 +11,8 @@ class StayIn extends React.Component {
         super(props);
         this.state = {
             selection: '1',
-            displayToggle: false,
+            displayToggleFood: false,
+            displayToggleMovie: false,
         }
     }
 
@@ -21,7 +22,7 @@ class StayIn extends React.Component {
 
         this.setState({
             selection: eventTargeted,
-            displayToggle: displayState,
+            displayToggleFood: displayState,
         });
     }
 
@@ -33,9 +34,9 @@ class StayIn extends React.Component {
           ];
 
         return (
-            <>
-                <Form.Group className="mb-3">
-                    <>
+            <Form>
+                    <div className="flex-container">
+                        <p>Are you planning a meal?</p>
                         <ButtonGroup>
                             {radios.map((radio, idx) => (
                                 <ToggleButton
@@ -52,21 +53,17 @@ class StayIn extends React.Component {
                                 </ToggleButton>
                             ))}
                         </ButtonGroup>
-                    </>
-                    <p>{this.state.selection}</p>
-                    <Form.Label>Disabled input</Form.Label>
-                    <Form.Control placeholder="Disabled input" disabled={this.state.displayToggle} />
-                </Form.Group>
+                    </div>
                 <Form.Group className="mb-3">
-                    <Form.Label>Disabled select menu</Form.Label>
-                    <Form.Select disabled>
-                        <option>Disabled select</option>
+                    {/* <Form.Label>Disabled select menu</Form.Label> */}
+                    <Form.Select disabled={this.state.displayToggleFood}>
+                        <option>Select Cuisine</option>
+                        <option>Chinese</option>
+                        <option>Pizza</option>
+                        <option>French</option>
                     </Form.Select>
                 </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Check type="checkbox" label="Can't check this" disabled />
-                </Form.Group>
-            </>
+            </Form>
         );
     }
 }

@@ -60,7 +60,7 @@ class App extends React.Component {
           {
             this.props.auth0.isAuthenticated ?
               <>
-              <div className='headerDiv'>
+              <div className='headerDiv flex-container'>
                 <TempProfile />
                 <LogoutButton />                
               </div>
