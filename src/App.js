@@ -59,7 +59,8 @@ class App extends React.Component {
       <>
         <Router>
           {
-            this.props.auth0.isAuthenticated ?
+            // this.props.auth0.isAuthenticated ?
+            true ?
               <>
               <div className='headerDiv flex-container'>
                 <TempProfile />

@@ -17,7 +17,7 @@ class Nav extends React.Component {
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <div className="nav-items">
           {/* <Navbar.Brand><img src={sweetspotlogo} alt="Sweet Spot Logo" className="nav-logo" /></Navbar.Brand> */}
-            <NavItem><Link to="home" style={{ color: 'black' }} className="nav-link"><FaHome /></Link></NavItem>
+            <NavItem><Link to="/" style={{ color: 'black' }} className="nav-link"><FaHome /></Link></NavItem>
             <NavItem><Link to="weather" style={{ color: 'black' }} className="nav-link"><WiDayCloudy /></Link></NavItem>
             <NavItem><Link to="profile" style={{ color: 'black' }} className="nav-link"><FaRegUserCircle /></Link></NavItem>
             <NavItem><Link to="team" style={{ color: 'black' }} className="nav-link"><FaUsers /></Link></NavItem>
