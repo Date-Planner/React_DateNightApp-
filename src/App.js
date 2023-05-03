@@ -10,12 +10,12 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 import Weather from './components/Weather';
 import Recipes from './components/Recipes';
-import { Button } from 'react-bootstrap';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginButton from './components/Login';
 import LogoutButton from './components/Logout';
 import { withAuth0 } from "@auth0/auth0-react";
 import TempProfile from './components/TempProfile';
+import "./css/app.css";
 
 
 import {
@@ -34,8 +34,7 @@ class App extends React.Component {
         lat: 0,
         lon: 0,
       }
-    }
-  }
+  }};
 
 
   handleGeolocationAPI = (position) => {
@@ -51,33 +50,25 @@ class App extends React.Component {
   getLocation = () => {
     navigator.geolocation.getCurrentPosition(this.handleGeolocationAPI);
     //this is cleared every time the page is reset. Need mechanism to cache location for a few minutes while
-  }
-
-
+  };
 
 
   render() {
-    console.log(this.state.location.lat);
+    console.log(this.state.lat);
     return (
       <>
         <Router>
           {
             this.props.auth0.isAuthenticated ?
               <>
+              <div className='headerDiv flex-container'>
                 <TempProfile />
-                <LogoutButton />
-                <Button variant="primary" onClick={this.getLocation}>GetLocation</Button>
-                {this.state.location.lat ?
-                  <>
-                    <p>Latitude: {this.state.location.lat}</p>
-                    <p>Longitude: {this.state.location.lon}</p>
-                  </>
-                  : false
-                }
+                <LogoutButton />                
+              </div>
                 <Routes>
                   <Route
                     exact path='/'
-                    element={<Home />}
+                    element={<Home getLocation = {this.getLocation} location={this.state.location}/>}
                   >
                   </Route>
                   <Route
