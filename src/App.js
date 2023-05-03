@@ -64,6 +64,7 @@ class App extends React.Component {
               <>
               <div className='headerDiv flex-container'>
                 <TempProfile />
+                <LoginButton />
                 <LogoutButton />                
               </div>
                 <Routes>
