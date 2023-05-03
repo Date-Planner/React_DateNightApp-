@@ -16,6 +16,7 @@ class StayIn extends React.Component {
 
     handleFormSubmit = (event) => {
         event.preventDefault();
+        this.getSubmittedInfop();
     }
 
     render() {
