@@ -16,7 +16,7 @@ class StayIn extends Component {
             foodOptions: ['Chinese', 'Pizza', 'French'],
             movieOptions: movieGenre.genres.map(movie => [movie.name, movie.id]),
             movieChoice: '',
-            mealChoice: [],
+            mealChoice: [1, 2, 3],
             randomMovie: null,
             appRecipe: null,
             mainRecipe: null,
@@ -28,12 +28,13 @@ class StayIn extends Component {
     
     getMealChoice = (mealChoice) => {
         this.setState({ mealChoice: mealChoice });
-        console.log(this.state.mealChoice)
+        // console.log(this.state.mealChoice)
     }
     
     getMovieChoice = (movieChoice) => {
+        console.log(movieChoice);
         this.setState({ movieChoice: movieChoice });
-        console.log(this.state.movieChoice)
+        console.log(this.state.movieChoice);
     }
     
     
@@ -45,18 +46,20 @@ class StayIn extends Component {
     handleFormSubmit = async (event) => {
         event.preventDefault();
 
+        const {movieChoice} = this.state
+        
         try {
-            console.log(this.state.movieChoice)
-            const randomMovie = await axios.get(`${process.env.REACT_APP_SERVER}/movies?genID=${this.state.movieChoice}`);
-            const appRecipe = await axios.get(`${process.env.REACT_APP_SERVER}/app`);
-            const mainRecipe = await axios.get(`${process.env.REACT_APP_SERVER}/main`);
-            const dessertRecipe = await axios.get(`${process.env.REACT_APP_SERVER}/dessert`);
-            console.log(appRecipe.data);
+            console.log(/1/g.test(`${this.state.mealChoice}`));
+            const randomMovie = (movieChoice === '' || movieChoice === '0' || movieChoice === 0 ? null : await axios.get(`${process.env.REACT_APP_SERVER}/movies?genID=${movieChoice}`));
+            const appRecipe = (/1/g.test(`${this.state.mealChoice}`) ? await axios.get(`${process.env.REACT_APP_SERVER}/app`) : null);
+            const mainRecipe = (/2/g.test(`${this.state.mealChoice}`) ? await axios.get(`${process.env.REACT_APP_SERVER}/main`) : null);
+            const dessertRecipe = (/3/g.test(`${this.state.mealChoice}`) ? await axios.get(`${process.env.REACT_APP_SERVER}/dessert`) : null);
+            // console.log(appRecipe.data);
             this.setState({ 
-                randomMovie: randomMovie.data, 
-                appRecipe: appRecipe.data,
-                mainRecipe: mainRecipe.data,
-                dessertRecipe: dessertRecipe.data
+                randomMovie: randomMovie ? randomMovie.data : null, 
+                appRecipe: appRecipe ? appRecipe.data : null ,
+                mainRecipe: mainRecipe ? mainRecipe.data : null,
+                dessertRecipe: dessertRecipe ? dessertRecipe.data : null
             });
 
         } catch (error) {
@@ -70,17 +73,16 @@ class StayIn extends Component {
             <>
                 <Form onSubmit={this.handleFormSubmit}>
                     <FormQuestionV1
-                        eventCaptureFunc={this.getMealChoice}
                         qType={'movie'}
-                        prompt={'Want to see a movie?'}
+                        prompt={'See a movie?'}
                         initialSelection={'Select Genre'}
                         selection={this.state.movieOptions}
                         getSelectedMovie={this.getMovieChoice}
                     />
-                    <FormQuestionV2 eventCapture={this.getMealChoice} />
-                    <Button variant="primary" type="submit">PLAN DATE</Button>
+                    <FormQuestionV2 getMealSelection={this.getMealChoice} />
+                    <Button variant="primary" type="submit" >PLAN DATE</Button>
                 </Form>
-                <Container class="container">
+                <Container className="container">
                 {
                         this.state.randomMovie ?
                     <Row className="justify-content-center align-items-center">
@@ -94,11 +96,11 @@ class StayIn extends Component {
                             </Card>
                         </Col>
                     </Row>
-                    : "load movie"}
+                    : null}
                     <Row className="justify-content-center align-items-center">
-                        {this.state.appRecipe ? <RecipeCard recipe={this.state.appRecipe}></RecipeCard> : "load main recipe"}
-                        {this.state.mainRecipe ? <RecipeCard recipe={this.state.mainRecipe}></RecipeCard> : "load main recipe"}
-                        {this.state.dessertRecipe ? <RecipeCard recipe={this.state.dessertRecipe}></RecipeCard> : "load main recipe"}
+                        {this.state.appRecipe ? <RecipeCard recipe={this.state.appRecipe} copyText = {this.copyText}></RecipeCard> : null}
+                        {this.state.mainRecipe ? <RecipeCard recipe={this.state.mainRecipe} copyText = {this.copyText}></RecipeCard> : null}
+                        {this.state.dessertRecipe ? <RecipeCard recipe={this.state.dessertRecipe} copyText = {this.copyText}></RecipeCard> : null}
                     </Row>
                 </Container>
             </>

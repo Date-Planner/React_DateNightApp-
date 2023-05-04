@@ -27,7 +27,7 @@ class Recipes extends Component {
                                 </ol>
                             </div>
                         </Card.Text>
-                        <Button variant="secondary" onClick={() => this.copyText(`${recipe.name}\n${JSON.stringify(recipe.ingredients)}\n${JSON.stringify(recipe.instructions)}`)}>Copy Text</Button>
+                        <Button variant="secondary" onClick={() => this.props.copyText(`${recipe.name}\n${JSON.stringify(recipe.ingredients)}\n${JSON.stringify(recipe.instructions)}`)}>Copy Text</Button>
                     </Card.Body>
                 </Card>
             </Col>
