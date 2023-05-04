@@ -25,30 +25,31 @@ class StayIn extends Component {
         }
     }
 
-    
+
     getMealChoice = (mealChoice) => {
         this.setState({ mealChoice: mealChoice });
         // console.log(this.state.mealChoice)
     }
-    
+
     getMovieChoice = (movieChoice) => {
         console.log(movieChoice);
         this.setState({ movieChoice: movieChoice });
         console.log(this.state.movieChoice);
     }
-    
-    
+
+
     copyText = (text) => {
         navigator.clipboard.writeText(text);
         this.setState({ copiedText: text });
     };
-    
+
     handleFormSubmit = async (event) => {
         event.preventDefault();
 
         const {movieChoice} = this.state
         
         try {
+
             console.log(/1/g.test(`${this.state.mealChoice}`));
             const randomMovie = (movieChoice === '' || movieChoice === '0' || movieChoice === 0 ? null : await axios.get(`${process.env.REACT_APP_SERVER}/movies?genID=${movieChoice}`));
             const appRecipe = (/1/g.test(`${this.state.mealChoice}`) ? await axios.get(`${process.env.REACT_APP_SERVER}/app`) : null);
@@ -60,6 +61,7 @@ class StayIn extends Component {
                 appRecipe: appRecipe ? appRecipe.data : null ,
                 mainRecipe: mainRecipe ? mainRecipe.data : null,
                 dessertRecipe: dessertRecipe ? dessertRecipe.data : null
+
             });
 
         } catch (error) {
@@ -67,10 +69,18 @@ class StayIn extends Component {
         }
 
     }
-    
+
     render() {
         return (
             <>
+                <Container fluid className="d-flex flex-column justify-content-center align-items-center" style={{ height: '30vh' }}>
+                    <Row>
+                        <Col>
+                            <h1 className="text-center">Welcome to Stay In Date Night</h1>
+                            <p>Looking for a fun and cozy date night at home? Our Stay In Date Night planner can help you choose a movie and a delicious meal to enjoy together. Simply select your movie genre and preferred meal type, and we'll do the rest!</p>
+                        </Col>
+                    </Row>
+                </Container>
                 <Form onSubmit={this.handleFormSubmit}>
                     <FormQuestionV1
                         qType={'movie'}
@@ -89,7 +99,7 @@ class StayIn extends Component {
                     <Col md="4">
                             <Card className="card">
                                 <Card.Body>
-                                    <Card.Title>{this.state.randomMovie.title}</Card.Title>
+                                    <Card.Title>{this.state.randomMovie.title}</Card.Title>sdg
                                     <Card.Img variant="top" src={this.state.randomMovie.poster} alt={'movie poster for ' + this.state.randomMovie.title} />
                                     <Card.Text>{this.state.randomMovie.description}</Card.Text>
                                 </Card.Body>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import homeBanner from './images/SweetSpotLogo.png';
+import logo from './images/SweetSpotLogo.png';
 import { FaMapMarkerAlt, FaHandHoldingHeart, FaCalendarAlt } from 'react-icons/fa';
 
 class Home extends React.Component {
@@ -25,7 +25,7 @@ class Home extends React.Component {
         <Row className="mt-3">
           <Col>
           <div className="mb-4 d-flex justify-content-center">
-              <img src={homeBanner} alt="SweetSpot Home Banner" className="img-fluid" />
+              <img src={logo} alt="SweetSpot Home Banner" className="img-fluid" />
             </div>
             <h1 className="text-center mb-4">Welcome to SweetSpot, the Date Night Planner!</h1>
             <p className="text-center mb-4">With SweetSpot, you can easily plan the perfect evening with your significant other.</p>
