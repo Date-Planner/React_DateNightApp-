@@ -1,11 +1,12 @@
 import React from "react";
 
+
+//render list of movies titles and meals
+
 class Memories extends React.Component {
   render() {
     return (
-      <div className="memories">
-        <p>&copy; 2023 Code Fellow Students</p>
-      </div>
+        <h1>See your memeories</h1>
     );
   }
 }

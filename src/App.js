@@ -93,11 +93,11 @@ class App extends React.Component {
                     path='profile'
                     element={<Profile />}
                   >
-                    <Route
-                      path='memories'
-                      element={<Memories />}
-                    >
-                    </Route>
+                  </Route>
+                  <Route
+                    path='memories'
+                    element={<Memories />}
+                  >
                   </Route>
                   <Route
                     path='team'
