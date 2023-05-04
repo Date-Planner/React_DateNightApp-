@@ -27,7 +27,7 @@ export default class FormQuestionV1 extends Component {
     handleChange = (val) => {
         console.log(val);
         this.setState({ value: val });
-        this.props.eventCaptureFunc(val);
+        this.props.getSelectedMovie(val);
         // console.log(this.state.value);
     }
 
