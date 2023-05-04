@@ -35,58 +35,22 @@ class DatePlanner extends Component {
         this.setState({ food: event.target.value });
     }
 
-    handleSubmit(event) {
+
+
+    handleSubmit = async (event) => {
         if (event) {
-          event.preventDefault();
+            event.preventDefault();
         }
-        const { location, food } = this.state;
-        if (!location || !food) {
-        //   this.setState({ error: 'Please enter both location and cuisine for the best nearby Date Night Options.' });
-          return;
+        try {
+            this.setState({ loading: true, error: null });
+            const response = await axios.get(`http://localhost:3002/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=tacos`) 
+                console.log(response.data.businesses);
+            
+            this.setState({ yelpData: response.data.businesses, loading: false });
+        } catch (error) {
+            this.setState({ error: error.message, loading: false });
         }
-    
-        // call API with location and food as parameters and set yelpData to response data
-        // e.g. using fetch:
-        fetch(`http://localhost:3002/go-out-food`, {
-          headers: {
-            Authorization: `${process.env.YELP_API_KEY}`
-          }
-        })
-          .then(response => response.json())
-          .then(data => this.setState({ yelpData: data.businesses }))
-          .catch(error => this.setState({ error: error.message }));
-      }
-
-
-
-
-
-
-
-    // handleSubmit = async (event) => {
-    //     if (event) {
-    //         event.preventDefault();
-    //     }
-    
-    //     try {
-    //         this.setState({ loading: true, error: null });
-    //         const response = await axios.get('http://localhost:3002/go-out-food', {
-    //             headers: {
-    //                 Authorization: `Bearer ${process.env.YELP_API_KEY}`,
-    //             },
-    //             params: {
-    //                 term: this.state.food,
-    //                 location: this.state.location,
-    //                 categories: 'restaurants',
-    //                 limit: 10,
-    //                 sort_by: 'rating',
-    //             },
-    //         });
-    //         this.setState({ yelpData: response.data.businesses, loading: false });
-    //     } catch (error) {
-    //         this.setState({ error: error.message, loading: false });
-    //     }
-    // };
+    };
     
     render() {
         const { yelpData, loading, error } = this.state;
@@ -136,7 +100,7 @@ class DatePlanner extends Component {
 
                 {yelpData && yelpData.length > 0 && (
                     <div className="mt-3">
-                        {/* <h3>Results</h3> */}
+                        <h3>Results</h3>
                         <Carousel>
                             {yelpData.map((business, index) => (
                                 <Carousel.Item key={index}>
