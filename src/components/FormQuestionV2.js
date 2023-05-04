@@ -6,31 +6,16 @@ export default class FormQuestion extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selection: `${this.props.qType}-1`,
             displayToggle: false,
             value: [1, 2, 3],
         }
     }
 
-    setRadioValue = (eventTargeted) => {
-
-        let displayState = parseInt(eventTargeted.at(-1)) % 2 ? false : true;
-
-        this.setState({
-            selection: `${eventTargeted}`,
-            displayToggle: displayState,
-        })
-
-
-    }
-
     handleChange = (val) => {
         this.setState({ value: val });
-        console.log(this.state.value);
+        // console.log(this.state.value);
+        this.props.getMealSelection(val)
     }
-
-
-
 
     render() {
         return (
@@ -46,7 +31,7 @@ export default class FormQuestion extends Component {
                         Dessert
                     </ToggleButton>
                 </ToggleButtonGroup>
-                <h1>{this.state.value}</h1>
+                {/* <h1>{this.state.value}</h1> */}
             </>
         );
     }

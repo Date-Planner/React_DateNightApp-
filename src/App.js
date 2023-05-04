@@ -7,7 +7,6 @@ import StayIn from './components/StayIn';
 import Profile from './components/Profile';
 import Team from './components/Team';
 import Nav from './components/Nav';
-import Footer from './components/Footer';
 import Weather from './components/Weather';
 import Recipes from './components/Recipes';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -87,7 +86,7 @@ class App extends React.Component {
                     path='recipes'
                     element={<Recipes />}
                   >
-                  </Route>
+                  </Route> */
                   <Route
                     path='profile'
                     element={<Profile />}
@@ -112,7 +111,6 @@ class App extends React.Component {
               </>
           }
         </Router>
-        <Footer className="footer" />
       </>
     )
   }
