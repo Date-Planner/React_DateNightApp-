@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import "./Recipes.css";
 import axios from "axios";
 
@@ -7,24 +7,55 @@ class Recipes extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            recipe: null,
+            mainRecipe: null,
+            appRecipe: null,
+            dessertRecipe: null,
             isLoading: false,
-            error: null
+            error: null,
+            copiedText: '',
         };
     }
 
     componentDidMount() {
-        this.fetchRecipes ();
+        this.fetchMainRecipe();
+        this.fetchAppRecipe();
+        this.fetchDessertRecipe();
+    }
+
+    fetchMainRecipe = async () => {
+        try {
+            const response = await axios.get("http://localhost:3002/main");
+            this.setState({ mainRecipe: response.data });
+        } catch (error) {
+            this.setState({ error: error });
+        }
     };
 
-    fetchRecipes = async () => {
-        let Url = "http://localhost:3002/testRecipe/random";
-        const response = await axios.get(Url);
-        console.log(response);
+    fetchAppRecipe = async () => {
+        try {
+            const response = await axios.get("http://localhost:3002/app");
+            this.setState({ appRecipe: response.data });
+        } catch (error) {
+            this.setState({ error: error });
+        }
     };
 
+    fetchDessertRecipe = async () => {
+        try {
+            const response = await axios.get("http://localhost:3002/dessert");
+            this.setState({ dessertRecipe: response.data });
+        } catch (error) {
+            this.setState({ error: error });
+        }
+    };
+
+    copyText = (text) => {
+        navigator.clipboard.writeText(text);
+        this.setState({ copiedText: text });
+    };
     render() {
-        const { recipe, isLoading, error } = this.state;
+        const { mainRecipe, appRecipe, dessertRecipe, isLoading, error } =
+            this.state;
 
         if (error) {
             return <p>{error.message}</p>;
@@ -35,34 +66,102 @@ class Recipes extends React.Component {
         }
 
         return (
-            <Container>
+            <Container class="container">
                 <Row>
                     <Col>
-                        <p className="recipe-header">Welcome to our collection of recipes, featuring a wide range of appetizers, salads, soups, main courses, and desserts. Our vast selection is randomly generated to provide you with multiple ideas for an amazing date night. Our recipes are all made from scratch, carefully tested and proven to be an excellent way to have a memorable dinner at home. So come and explore our recipe collection to find the perfect combination for a great date night at home.</p>
+                        <p className="recipe-header">
+                            Welcome to our collection of recipes, featuring a wide range of
+                            appetizers, salads, soups, main courses, and desserts. Our vast
+                            selection is randomly generated to provide you with multiple ideas
+                            for an amazing date night. Our recipes are all made from scratch,
+                            carefully tested and proven to be an excellent way to have a
+                            memorable dinner at home. So come and explore our recipe collection
+                            to find the perfect combination for a great date night at home.
+                        </p>
                     </Col>
                 </Row>
                 <Row className="justify-content-center align-items-center">
-                    {recipe &&
-                        <Card>
-                            <Card.Img variant="top" src={recipe.image} className="recipe-image" />
-                            <Card.Body>
-                                <Card.Title>{recipe.name}</Card.Title>
-                                <Card.Text>
-                                    <ul>
-                                        {recipe.ingredients.map((ingredient, index) => (
-                                            <li key={index}>{ingredient}</li>
-                                        ))}
-                                    </ul>
-                                    <p>{recipe.instructions}</p>
-                                </Card.Text>
-                                <Button variant="primary">Explore</Button>
-                            </Card.Body>
-                        </Card>
-                    }
+                    {mainRecipe && (
+                        <Col md="4">
+                            <Card className="card">
+                                <Card.Body>
+                                    <Card.Title>{mainRecipe.name}</Card.Title>
+                                    <Card.Text>
+                                        <div>
+                                            <ul>
+                                                <strong>Ingredients</strong>
+                                                {mainRecipe.ingredients.map((ingredient, index) => (
+                                                    <li key={index}>{ingredient.name} Quantity: {ingredient.quantity}</li>
+                                                ))}
+                                            </ul>
+                                            <ol>
+                                                <strong>Instructions</strong>
+                                                {mainRecipe.instructions.map((instructions, index) => (
+                                                    <li key={index}>{instructions.step}</li>
+                                                ))}
+                                            </ol>
+                                        </div>
+                                    </Card.Text>
+                                    <Button variant="secondary" onClick={() => this.copyText(`${mainRecipe.name}\n${JSON.stringify(mainRecipe.ingredients)}\n${JSON.stringify(mainRecipe.instructions)}`)}>Copy Text</Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    )}
+                    {appRecipe && (
+                        <Col md="4">
+                            <Card className="card">
+                                <Card.Body>
+                                    <Card.Title>{appRecipe.name}</Card.Title>
+                                    <Card.Text>
+                                        <div>
+                                            <ul>
+                                                <strong>Ingredients</strong>
+                                                {appRecipe.ingredients.map((ingredient, index) => (
+                                                    <li key={index}>{ingredient.name} Quantity: {ingredient.quantity}</li>
+                                                ))}
+                                            </ul>
+                                            <ol>
+                                                <strong>Instructions</strong>
+                                                {appRecipe.instructions.map((instructions, index) => (
+                                                    <li key={index}>{instructions.step}</li>
+                                                ))}
+                                            </ol>
+                                        </div>
+                                    </Card.Text>
+                                    <Button variant="secondary" onClick={() => this.copyText(`${mainRecipe.name}\n${JSON.stringify(mainRecipe.ingredients)}\n${JSON.stringify(mainRecipe.instructions)}`)}>Copy Text</Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    )}
+                    {dessertRecipe && (
+                        <Col md="4">
+                            <Card className="card" d>
+                                <Card.Body>
+                                    <Card.Title>{dessertRecipe.name}</Card.Title>
+                                    <Card.Text>
+                                        <div>
+                                            <ul>
+                                                <strong>Ingredients</strong>
+                                                {dessertRecipe.ingredients.map((ingredient, index) => (
+                                                    <li key={index}>{ingredient.name} Quantity: {ingredient.quantity}</li>
+                                                ))}
+                                            </ul>
+                                            <ol>
+                                                <strong>Instructions</strong>
+                                                {dessertRecipe.instructions.map((instructions, index) => (
+                                                    <li key={index}>{instructions.step}</li>
+                                                ))}
+                                            </ol>
+                                        </div>
+                                    </Card.Text>
+                                    <Button variant="secondary" onClick={() => this.copyText(`${mainRecipe.name}\n${JSON.stringify(mainRecipe.ingredients)}\n${JSON.stringify(mainRecipe.instructions)}`)}>Copy Text</Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    )}
                 </Row>
-            </Container>
-        );
+            </Container >
+        )
     }
 }
-
 export default Recipes;
