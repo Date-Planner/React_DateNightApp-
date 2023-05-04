@@ -11,13 +11,38 @@ class StayIn extends React.Component {
         this.state = {
             foodOptions: ['Chinese', 'Pizza', 'French'],
             movieOptions: ['Comedy', 'Drama', 'Action', 'Horror'],
+            selectedGenre: null,
+            movies: [],
+            selectedMovie: null
         }
     }
 
-    handleFormSubmit = (event) => {
+    handleFormSubmit = async (event) => {
         event.preventDefault();
-        this.getSubmittedInfop();
+        if(this.state.showMovieGenres && this.state.selectedGenre) {
+            try {
+                const response = await fetch(`/movies?genID=${this.state.selectedGenre}`);
+                const movies = await response.json();
+                this.setState({movies});
+            } catch (error) {
+                console.error(error);
+            }
+        }
     }
+
+    handleMovieSelection = (event) => {
+        const selectedGenre = event.target.value;
+        const showMovieGenres = (selectedGenre !== 'Select Genre');
+        this.setState({selectedGenre, showMovieGenres});
+    }
+
+    // handleFormSubmit = (event) => {
+    //     event.preventDefault();
+    //     this.getSubmittedInfop();
+    // }
+
+
+    
 
     render() {
         return (
@@ -29,15 +54,24 @@ class StayIn extends React.Component {
                     initialSelection = {'Select Cuisine'}
                     selection = {this.state.foodOptions}
                     />
+
                     <FormQuestion 
                     qType = {'movie'}
                     prompt = {'Do you want to include a movie?'}
                     initialSelection = {'Select Genre'}
                     selection = {this.state.movieOptions}
+                    onSelect={this.handleMovieSelection}
                     />
                     <Button variant="primary" type="submit">PLAN DATE</Button>
             </Form>
-            <h1>test</h1>
+            <div>
+                {this.state.movies.map(movie => (
+                    <div key={movie.id}>
+                        <h2>{movie.title}</h2>
+                        <img src={`https://www.themoviedb.org/t/p/w50_and_h50_bestv2${movie.poster_path}`} alt={movie.title} />
+                    </div>
+                ))}
+            </div>
             </>
 
         );
