@@ -25,23 +25,23 @@ class StayIn extends Component {
         }
     }
 
-    
+
     getMealChoice = (mealChoice) => {
         this.setState({ mealChoice: mealChoice });
         console.log(this.state.mealChoice)
     }
-    
+
     getMovieChoice = (movieChoice) => {
         this.setState({ movieChoice: movieChoice });
         console.log(this.state.movieChoice)
     }
-    
-    
+
+
     copyText = (text) => {
         navigator.clipboard.writeText(text);
         this.setState({ copiedText: text });
     };
-    
+
     handleFormSubmit = async (event) => {
         event.preventDefault();
 
@@ -52,8 +52,8 @@ class StayIn extends Component {
             const mainRecipe = await axios.get(`${process.env.REACT_APP_SERVER}/main`);
             const dessertRecipe = await axios.get(`${process.env.REACT_APP_SERVER}/dessert`);
             console.log(appRecipe.data);
-            this.setState({ 
-                randomMovie: randomMovie.data, 
+            this.setState({
+                randomMovie: randomMovie.data,
                 appRecipe: appRecipe.data,
                 mainRecipe: mainRecipe.data,
                 dessertRecipe: dessertRecipe.data
@@ -64,10 +64,18 @@ class StayIn extends Component {
         }
 
     }
-    
+
     render() {
         return (
             <>
+                <Container fluid className="d-flex flex-column justify-content-center align-items-center" style={{ height: '30vh' }}>
+                    <Row>
+                        <Col>
+                            <h1 className="text-center">Welcome to Stay In Date Night</h1>
+                            <p>Looking for a fun and cozy date night at home? Our Stay In Date Night planner can help you choose a movie and a delicious meal to enjoy together. Simply select your movie genre and preferred meal type, and we'll do the rest!</p>
+                        </Col>
+                    </Row>
+                </Container>
                 <Form onSubmit={this.handleFormSubmit}>
                     <FormQuestionV1
                         eventCaptureFunc={this.getMealChoice}
@@ -81,20 +89,20 @@ class StayIn extends Component {
                     <Button variant="primary" type="submit">PLAN DATE</Button>
                 </Form>
                 <Container class="container">
-                {
+                    {
                         this.state.randomMovie ?
-                    <Row className="justify-content-center align-items-center">
-                    <Col md="4">
-                            <Card className="card">
-                                <Card.Body>
-                                    <Card.Title>{this.state.randomMovie.title}</Card.Title>
-                                    <Card.Img variant="top" src={this.state.randomMovie.poster} alt={'movie poster for ' + this.state.randomMovie.title} />
-                                    <Card.Text>{this.state.randomMovie.description}</Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                    : "load movie"}
+                            <Row className="justify-content-center align-items-center">
+                                <Col md="4">
+                                    <Card className="card">
+                                        <Card.Body>
+                                            <Card.Title>{this.state.randomMovie.title}</Card.Title>
+                                            <Card.Img variant="top" src={this.state.randomMovie.poster} alt={'movie poster for ' + this.state.randomMovie.title} />
+                                            <Card.Text>{this.state.randomMovie.description}</Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Row>
+                            : "load movie"}
                     <Row className="justify-content-center align-items-center">
                         {this.state.appRecipe ? <RecipeCard recipe={this.state.appRecipe}></RecipeCard> : "load main recipe"}
                         {this.state.mainRecipe ? <RecipeCard recipe={this.state.mainRecipe}></RecipeCard> : "load main recipe"}

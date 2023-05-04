@@ -9,6 +9,7 @@ import Team from './components/Team';
 import Nav from './components/Nav';
 import Weather from './components/Weather';
 import Recipes from './components/Recipes';
+import Memories from './components/Memories';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginButton from './components/Login';
 import LogoutButton from './components/Logout';
@@ -33,7 +34,8 @@ class App extends React.Component {
         lat: 0,
         lon: 0,
       }
-  }};
+    }
+  };
 
 
   handleGeolocationAPI = (position) => {
@@ -61,15 +63,15 @@ class App extends React.Component {
             // this.props.auth0.isAuthenticated ?
             true ?
               <>
-              <div className='headerDiv flex-container'>
-                <TempProfile />
-                <LoginButton />
-                <LogoutButton />                
-              </div>
+                <div className='headerDiv flex-container'>
+                  <TempProfile />
+                  <LoginButton />
+                  <LogoutButton />
+                </div>
                 <Routes>
                   <Route
                     exact path='/'
-                    element={<Home getLocation = {this.getLocation} location={this.state.location}/>}
+                    element={<Home getLocation={this.getLocation} location={this.state.location} />}
                   >
                   </Route>
                   <Route
@@ -86,11 +88,16 @@ class App extends React.Component {
                     path='recipes'
                     element={<Recipes />}
                   >
-                  </Route> */
+                  </Route>
                   <Route
                     path='profile'
                     element={<Profile />}
                   >
+                    <Route
+                      path='memories'
+                      element={<Memories />}
+                    >
+                    </Route>
                   </Route>
                   <Route
                     path='team'
@@ -106,8 +113,8 @@ class App extends React.Component {
                 <Nav />
               </>
               :
-             <> <LoginButton />
-              <Nav />
+              <> <LoginButton />
+                <Nav />
               </>
           }
         </Router>
