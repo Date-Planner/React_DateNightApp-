@@ -22,12 +22,10 @@ class Nav extends React.Component {
             <NavItem><Link to="profile" style={{ color: 'black' }} className="nav-link"><FaRegUserCircle /></Link></NavItem>
             <NavItem><Link to="team" style={{ color: 'black' }} className="nav-link"><FaUsers /></Link></NavItem>
           </div>
-          <NavItem><Link to="go-out" style={{ color: 'black' }} className="nav-link">Going Out</Link></NavItem>
-          <NavItem><Link to="stay-in" style={{ color: 'black' }} className="nav-link">Staying In</Link></NavItem>
-          <NavItem><Link to="recipes" style={{ color: 'black' }} className="nav-link">Recipes</Link></NavItem>
         </Navbar>
       </div>
     )
   }
 }
+
 export default Nav;
