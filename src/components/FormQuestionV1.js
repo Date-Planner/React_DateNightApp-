@@ -66,13 +66,21 @@ export default class FormQuestionV1 extends Component {
                             </ToggleButton>
                         ))}
                     </ButtonGroup>
-                    <Form.Group className="mb-3" >
-                        <Form.Select disabled={this.state.displayToggle} onChange={(e) => this.handleChange(e.target.value)}> {/*value={this.state.optionValue}> */}
-                            <option value={0} key={0}>{this.props.initialSelection}</option>
-                            {this.props.selection.map((available, idx) => <option key={idx + 1} value={available[1]} > {available[0]} </option>)}
-                        </Form.Select>
-                    </Form.Group>
                 </div>
+                <Form style={{ paddingTop: '20px' }}>
+  <Form.Group className="mb-3">
+  <Form.Label style={{ fontSize: 'Large' }} className="text-center">Please select a genre!</Form.Label>
+    <Form.Select
+      disabled={this.state.displayToggle}
+      onChange={(e) => this.handleChange(e.target.value)}
+    >
+      <option value={0} key={0}>{this.props.initialSelection}</option>
+      {this.props.selection.map((available, idx) => (
+        <option key={idx + 1} value={available[1]} > {available[0]} </option>
+      ))}
+    </Form.Select>
+  </Form.Group>
+</Form>
                 {/* <h1> {this.state.value} </h1> */}
             </>
         );

@@ -46,8 +46,8 @@ class StayIn extends Component {
     handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        const {movieChoice} = this.state
-        
+        const { movieChoice } = this.state
+
         try {
 
             console.log(/1/g.test(`${this.state.mealChoice}`));
@@ -56,9 +56,9 @@ class StayIn extends Component {
             const mainRecipe = (/2/g.test(`${this.state.mealChoice}`) ? await axios.get(`${process.env.REACT_APP_SERVER}/main`) : null);
             const dessertRecipe = (/3/g.test(`${this.state.mealChoice}`) ? await axios.get(`${process.env.REACT_APP_SERVER}/dessert`) : null);
             // console.log(appRecipe.data);
-            this.setState({ 
-                randomMovie: randomMovie ? randomMovie.data : null, 
-                appRecipe: appRecipe ? appRecipe.data : null ,
+            this.setState({
+                randomMovie: randomMovie ? randomMovie.data : null,
+                appRecipe: appRecipe ? appRecipe.data : null,
                 mainRecipe: mainRecipe ? mainRecipe.data : null,
                 dessertRecipe: dessertRecipe ? dessertRecipe.data : null
 
@@ -75,42 +75,46 @@ class StayIn extends Component {
             <>
                 <Container fluid className="d-flex flex-column justify-content-center align-items-center" style={{ height: '30vh' }}>
                     <Row>
-                        <Col>
+                        <Col style={{ marginTop: '70px' }}>
                             <h1 className="text-center">Welcome to Stay In Date Night</h1>
-                            <p>Looking for a fun and cozy date night at home? Our Stay In Date Night planner can help you choose a movie and a delicious meal to enjoy together. Simply select your movie genre and preferred meal type, and we'll do the rest!</p>
+                            <p style={{ fontSize: 'large', paddingTop: '20px', paddingBottom: '30px', textAlign: 'center' }}>Looking for a fun and cozy date night at home? Our Stay In Date Night planner can help you choose a movie and a delicious meal to enjoy together. Simply select your movie genre and preferred meal type, and we'll do the rest!</p>
                         </Col>
                     </Row>
                 </Container>
                 <Form onSubmit={this.handleFormSubmit}>
-                    <FormQuestionV1
-                        qType={'movie'}
-                        prompt={'See a movie?'}
-                        initialSelection={'Select Genre'}
-                        selection={this.state.movieOptions}
-                        getSelectedMovie={this.getMovieChoice}
-                    />
+                    <div style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+                        <FormQuestionV1
+                            qType={'movie'}
+                            prompt={<Form.Label style={{ fontSize: 'large' }}>See a movie?</Form.Label>}
+                            initialSelection={'Select Genre'}
+                            selection={this.state.movieOptions}
+                            getSelectedMovie={this.getMovieChoice}
+                        />
+                    </div>
                     <FormQuestionV2 getMealSelection={this.getMealChoice} />
-                    <Button variant="primary" type="submit" >PLAN DATE</Button>
+                    <div className="text-center">
+                        <Button variant="primary" type="submit">PLAN DATE</Button>
+                    </div>
                 </Form>
                 <Container className="container">
-                {
+                    {
                         this.state.randomMovie ?
+                            <Row className="justify-content-center align-items-center">
+                                <Col md="4">
+                                    <Card className="card">
+                                        <Card.Body>
+                                            <Card.Title>{this.state.randomMovie.title}</Card.Title>sdg
+                                            <Card.Img variant="top" src={this.state.randomMovie.poster} alt={'movie poster for ' + this.state.randomMovie.title} />
+                                            <Card.Text>{this.state.randomMovie.description}</Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Row>
+                            : null}
                     <Row className="justify-content-center align-items-center">
-                    <Col md="4">
-                            <Card className="card">
-                                <Card.Body>
-                                    <Card.Title>{this.state.randomMovie.title}</Card.Title>sdg
-                                    <Card.Img variant="top" src={this.state.randomMovie.poster} alt={'movie poster for ' + this.state.randomMovie.title} />
-                                    <Card.Text>{this.state.randomMovie.description}</Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                    : null}
-                    <Row className="justify-content-center align-items-center">
-                        {this.state.appRecipe ? <RecipeCard recipe={this.state.appRecipe} copyText = {this.copyText}></RecipeCard> : null}
-                        {this.state.mainRecipe ? <RecipeCard recipe={this.state.mainRecipe} copyText = {this.copyText}></RecipeCard> : null}
-                        {this.state.dessertRecipe ? <RecipeCard recipe={this.state.dessertRecipe} copyText = {this.copyText}></RecipeCard> : null}
+                        {this.state.appRecipe ? <RecipeCard recipe={this.state.appRecipe} copyText={this.copyText}></RecipeCard> : null}
+                        {this.state.mainRecipe ? <RecipeCard recipe={this.state.mainRecipe} copyText={this.copyText}></RecipeCard> : null}
+                        {this.state.dessertRecipe ? <RecipeCard recipe={this.state.dessertRecipe} copyText={this.copyText}></RecipeCard> : null}
                     </Row>
                 </Container>
             </>
