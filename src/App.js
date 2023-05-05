@@ -4,7 +4,6 @@ import React from 'react';
 import Home from './components/Home';
 import GoOut from './components/GoOut';
 import StayIn from './components/StayIn';
-import Profile from './components/Profile';
 import Team from './components/Team';
 import Nav from './components/Nav';
 import Weather from './components/Weather';
@@ -87,11 +86,6 @@ class App extends React.Component {
                   <Route
                     path='recipes'
                     element={<Recipes />}
-                  >
-                  </Route>
-                  <Route
-                    path='profile'
-                    element={<Profile />}
                   >
                   </Route>
                   <Route
