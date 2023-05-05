@@ -2,6 +2,12 @@
     margin-top: 150px;
 }  
 
+.navbar{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
 
 
 .nav-items {
@@ -9,6 +15,7 @@
     justify-content: space-between;
     align-items: center;
     height: 80px;
+    width: 99%;
     padding: 45px;
     background-color: #f5f5f5;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);

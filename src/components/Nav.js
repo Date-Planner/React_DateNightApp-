@@ -12,7 +12,7 @@ import { FaPhotoVideo } from "react-icons/fa";
 class Nav extends React.Component {
   render() {
     return (
-      <div className="nav-bar">
+      <div className="nav-bar" style={{zIndex: '1'}}>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <div className="nav-items">         
             <NavItem><Link to="/" style={{ color: 'black' }} className="nav-link"><FaHome /></Link></NavItem>

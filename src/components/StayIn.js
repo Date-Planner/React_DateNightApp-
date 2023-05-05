@@ -5,6 +5,8 @@ import movieGenre from '../assets/movieGenre.json';
 import axios from "axios";
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import RecipeCard from "./RecipeCard";
+// import { useAuth0 } from "@auth0/auth0-react";
+
 
 
 
@@ -67,6 +69,8 @@ class StayIn extends Component {
     }
 
     postLog = async (movieTitleIn, appTitleIn, mainTitleIn, dessertTitleIn) => {
+        // const { user } = useAuth0();
+        // TO-DO isAuthenticated ? statement 
         const date = new Date();
         let movieTitleOut = movieTitleIn ? movieTitleIn.title : '';
         let appTitleOut = appTitleIn ? appTitleIn.name : '';
@@ -78,8 +82,11 @@ class StayIn extends Component {
             app: `${ appTitleOut }`,
             main: `${ mainTitleOut }`,
             dessert: `${ dessertTitleOut }`,
-            fav:0
+            fav:0,
+            // email: `${user.email}`
         }
+
+        // console.log(user.email);
         
         await axios.post(`${process.env.REACT_APP_SERVER}/memories`, movieObj);
         console.log('Memories saved successfully')
@@ -93,16 +100,14 @@ class StayIn extends Component {
         console.log(trigger);
         return (
             <>
-                {/* {trigger ? null : */}
                 <Container fluid className="d-flex flex-column justify-content-center align-items-center" style={{ height: '30vh' }}>
                     <Row>
                         <Col style={{ marginTop: '70px' }}>
-                            <h1 className="text-center">Welcome to Stay In Date Night</h1>
+                            <h1 className="text-center">Welcome<br/>to<br/>Stay In Date Night</h1>
                             <p style={{ fontSize: 'large', paddingTop: '20px', paddingBottom: '30px', textAlign: 'center' }}>Looking for a fun and cozy date night at home? Our Stay In Date Night planner can help you choose a movie and a delicious meal to enjoy together. Simply select your movie genre and preferred meal type, and we'll do the rest!</p>
                         </Col>
                     </Row>
                 </Container>
-                {/* } */}
                 <Form onSubmit={this.handleFormSubmit}>
                     <div style={{ paddingTop: '20px', paddingBottom: '20px' }}>
                         <FormQuestionV1
@@ -111,8 +116,9 @@ class StayIn extends Component {
                             initialSelection={'Select Genre'}
                             selection={movieOptions}
                             getSelectedMovie={this.getMovieChoice}
-                        />
+                            />
                     </div>
+                    <p>Select which courses for recipes</p>
                     <FormQuestionV2 getMealSelection={this.getMealChoice} />
                     <div className="text-center">
                         <Button variant="primary" type="submit" >PLAN DATE</Button>

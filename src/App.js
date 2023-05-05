@@ -1,5 +1,5 @@
 import React from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from './components/Home';
 import GoOut from './components/GoOut';
@@ -59,14 +59,18 @@ class App extends React.Component {
       <>
         <Router>
           {
-            // this.props.auth0.isAuthenticated ?
             true ?
               <>
-                <div className='headerDiv flex-container'>
-                  <TempProfile />
-                  <LoginButton />
-                  <LogoutButton />
-                </div>
+                {this.props.auth0.isAuthenticated ?
+                  <div style={{paddingTop:'5px'}} >
+                    <LogoutButton />
+                    <TempProfile />
+                  </div>
+                  :
+                  <div style={{paddingTop:'5px'}}>
+                    <LoginButton />
+                  </div>
+                }
                 <Routes>
                   <Route
                     exact path='/'
