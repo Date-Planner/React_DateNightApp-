@@ -68,24 +68,19 @@ class StayIn extends Component {
 
     postLog = async (movieTitleIn, appTitleIn, mainTitleIn, dessertTitleIn) => {
         const date = new Date();
-        // let movieTitleOut = movieTitleIn ? movieTitleIn.title : 'No movie logged';
-        // let appTitleOut = appTitleIn ? appTitleIn.name : 'No appetizer logged';
-        // let mainTitleOut = mainTitleIn ? mainTitleIn.name : 'No main entree logged'
-        // let dessertTitleOut = dessertTitleIn ? dessertTitleIn.name : 'No dessert logged';
-        // let movieObj = {
-        //     date: `${date.toDateString()}`,
-        //     movie: `${ movieTitleOut }`,
-        //     app: `${ appTitleOut }`,
-        //     main: `${ mainTitleOut }`,
-        //     dessert: `${ dessertTitleOut }`,
-        // }
+        let movieTitleOut = movieTitleIn ? movieTitleIn.title : '';
+        let appTitleOut = appTitleIn ? appTitleIn.name : '';
+        let mainTitleOut = mainTitleIn ? mainTitleIn.name : ''
+        let dessertTitleOut = dessertTitleIn ? dessertTitleIn.name : '';
         let movieObj = {
-            date: `${date.toDateString()}`,
-            movie: `${ movieTitleIn }`,
-            app: `${ appTitleIn }`,
-            main: `${ mainTitleIn }`,
-            dessert: `${ dessertTitleIn }`,
+            date: `Stayed in on ${date.toDateString()}`,
+            movie: `${ movieTitleOut }`,
+            app: `${ appTitleOut }`,
+            main: `${ mainTitleOut }`,
+            dessert: `${ dessertTitleOut }`,
+            fav:0
         }
+        
         await axios.post(`${process.env.REACT_APP_SERVER}/memories`, movieObj);
         console.log('Memories saved successfully')
     }

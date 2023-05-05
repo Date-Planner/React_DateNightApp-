@@ -4,17 +4,18 @@ import { Link } from 'react-router-dom';
 import logo from './images/SweetSpotLogo.png';
 import { FaMapMarkerAlt, FaHandHoldingHeart, FaCalendarAlt } from 'react-icons/fa';
 import './home.css'
+
 class Home extends React.Component {
 
   render() {
     return (
       <>
         <Row className="mt-3">
-        
+
         </Row>
         <Row className="mt-3">
           <Col>
-          <div className="mb-4 d-flex justify-content-center">
+            <div className="mb-4 d-flex justify-content-center">
               <img src={logo} alt="SweetSpot Home Banner" className="img-fluid" />
             </div>
             <h1 className="text-center mb-4">Welcome to SweetSpot, the Date Night Planner!</h1>
@@ -28,16 +29,9 @@ class Home extends React.Component {
                 <p>Click the "Get Location" button to find out where you are and get some ideas of what's around you.</p>
               </Col>
               <Col>
-              <Button variant="primary" style={{ display: "block", margin: "0 auto" }} onClick={() => this.props.getLocation()}>Get Location</Button>
-            {
-              this.props.location.lat ?
-                <>
-                  <p>Latitude: {this.props.location.lat}</p>
-                  <p>Longitude: {this.props.location.lon}</p>
-                </>
-                : <p></p>
-            }
-          </Col>
+                <Button variant={this.props.location.lat ? "success" : "primary"} style={{ display: "block", margin: "0 auto" }} onClick={() => this.props.getLocation()}>Get Location</Button>
+                <br/>
+              </Col>
             </Row>
             <Row className="align-items-center">
               <Col md={4} className="text-center mb-4">
@@ -62,10 +56,10 @@ class Home extends React.Component {
         </Row>
         <Row className="mt-3">
           <Col className="d-flex justify-content-center">
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '75%' }}>
-  <Button as={Link} to="/go-out" variant="success" size="lg" className="mr-3">Go Out</Button>
-  <Button as={Link} to="/stay-in" variant="warning" size="lg">Stay In</Button>
-</div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', width: '75%' }}>
+              <Button as={Link} to="/go-out" variant="info" size="lg" className="mr-3">Go Out</Button>
+              <Button as={Link} to="/stay-in" variant="warning" size="lg">Stay In</Button>
+            </div>
           </Col>
         </Row>
       </>
