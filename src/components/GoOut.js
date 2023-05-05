@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Form, Button, Carousel } from 'react-bootstrap';
+import { Form, Button, Carousel, Container, Row, Col} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+// import { useAuth0 } from "@auth0/auth0-react";
 import { FaSpinner } from 'react-icons/fa';
 import "./GoOut.css";
 
@@ -59,7 +59,6 @@ class DatePlanner extends Component {
     handleChange = (val) => {
         console.log(val);
         this.setState({ value: val });
-        // this.props.getSelectedMovie(val);
     };
 
     postLog = async (business) => {
@@ -69,7 +68,7 @@ class DatePlanner extends Component {
             bushinessName: business.name,
             bushinessPrice: business.price,
             bushinessUrl: business.url,
-            fav:0
+            fav:0,
         }
 
         await axios.post(`${process.env.REACT_APP_SERVER}/memories`, movieObj);
@@ -90,22 +89,22 @@ class DatePlanner extends Component {
 
         return (
             <div className="form-container">
+                               <Container fluid className="d-flex flex-column justify-content-center align-items-center" style={{ height: '30vh' }}>
+                    <Row>
+                        <Col style={{ marginTop: '70px' }}>
+                            <h1 className="text-center">Welcome to Going Out Date Night</h1>
+                            <p style={{ fontSize: 'large', paddingTop: '20px', paddingBottom: '30px', textAlign: 'center' }}>Our Date Night planner can help you choose a delicious meal to enjoy together. Just select your preferred movie meal type, and we'll take care of the rest!</p>
+                        </Col>
+                    </Row>
+                </Container>
                 <Form onSubmit={this.handleSubmit}>
-                    {/* <Form.Group controlId="formLocation">
-                        <Form.Label>Location</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Enter location"
-                            value={this.state.location}
-                            onChange={this.handleLocationChange}
-                        />
-                    </Form.Group> */}
+       
                     <Form.Group controlId="formFood">
                         <Form.Label>Food</Form.Label>
                         <Form.Control
                             as="select"
                             value={this.state.food}
-                            // onChange={this.handleFoodChange} 
+                       
                             onChange={(e) => this.handleChange(e.target.value)}
                         >
                             <option value="">Select cuisine</option>
@@ -126,7 +125,6 @@ class DatePlanner extends Component {
 
                 {yelpData && yelpData.length > 0 && (
                     <div className="mt-3">
-                        {/* <h3>Results</h3> */}
                         <Carousel >
                             {yelpData.map((business, index) => (
                                 <Carousel.Item key={index}>
@@ -144,7 +142,7 @@ class DatePlanner extends Component {
                                         <p style={{ textShadow: '0px 0px 3px black' }}>Rating: {business.rating}</p>
                                         <p style={{ textShadow: '0px 0px 3px black' }}>Price: {business.price}</p>
                                         <p><a href={business.url}>View on Yelp</a></p>
-                                        <Button variant="primary" onClick={() => this.postLog(business)}>Log</Button>
+                                        <Button style={{ width: '100%', marginTop: '20px'}} variant="primary" onClick={() => this.postLog(business)}>Log</Button>
                                     </div>
                                 </Carousel.Item>
                             ))}

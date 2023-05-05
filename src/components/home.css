@@ -2,3 +2,12 @@
     width: 100px;
     margin-right: 10px;
   }
+
+.homeContainer{
+}
+
+.align-items-center{
+    display: flex;
+    flex-flow: column;
+    
+  }

@@ -10,15 +10,13 @@ class Home extends React.Component {
   render() {
     return (
       <>
-        <Row className="mt-3">
-
-        </Row>
+      <div className="homeContainer">
         <Row className="mt-3">
           <Col>
             <div className="mb-4 d-flex justify-content-center">
               <img src={logo} alt="SweetSpot Home Banner" className="img-fluid" />
             </div>
-            <h1 className="text-center mb-4">Welcome to SweetSpot, the Date Night Planner!</h1>
+            <h1 className="text-center mb-4">Welcome to SweetSpot,<br/>The Date Night Planner!</h1>
             <p className="text-center mb-4">With SweetSpot, you can easily plan the perfect evening with your significant other.</p>
             <Row className="align-items-center">
               <Col md={4} className="text-center mb-4">
@@ -51,9 +49,10 @@ class Home extends React.Component {
                 <p>Browse our curated selection of ideas for your chosen option and plan your perfect date night!</p>
               </Col>
             </Row>
-            <p className="text-center mb-4">So what are you waiting for? Let's get started and make tonight a night to remember!</p>
+            <p className="text-center mb-4"><strong>So what are you waiting for? Let's get started and make tonight a night to remember!</strong></p>
           </Col>
         </Row>
+      </div>
         <Row className="mt-3">
           <Col className="d-flex justify-content-center">
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '75%' }}>
