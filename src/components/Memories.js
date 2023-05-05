@@ -50,16 +50,15 @@ class Memories extends React.Component {
     return (
       <Accordion>
         {memories.map((memory, idx) => (
-          
         <Accordion.Item eventKey={idx} key={idx}>
               <Accordion.Header>{memory.date}</Accordion.Header>
               <Accordion.Body>
-                  <p>{'Movie Test: ' + memory.movie}</p>
-                  <p>{'App Test: ' + memory.app}</p>
-                  <p>{'Main Test: ' + memory.main}</p>
-                  <p>{'Dessert Test: ' + memory.dessert}</p>
-                  <p>{'Restaurant Test: ' + memory.restaurant}</p>
-                  <p>{'Note Test: ' + memory.note}</p>
+                  {memory.movie ? <p><strong>Movie:</strong>  {memory.movie}</p> : null}
+                  {memory.app ? <p><strong>App:</strong>  {memory.app}</p> : null}
+                  {memory.main ? <p><strong>Main:</strong> {memory.main}</p> : null}
+                  {memory.dessert ? <p><strong>Dessert:</strong>  {memory.dessert}</p> : null}
+                  {memory.restaurant ? <p><strong>Restaurant:</strong>  {memory.restaurant}</p> : null}
+                  {/* <p>Note Test:  {memory.note}</p> */}
                   <Button
                       onClick={() => this.deleteMemory(memory._id)}
                   >
