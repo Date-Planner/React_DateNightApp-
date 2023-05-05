@@ -16,14 +16,15 @@ class DatePlanner extends Component {
             yelpData: [],
             loading: false,
             error: null,
+            value: '',
         };
-  
+
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleLocationChange = this.handleLocationChange.bind(this);
         this.handleFoodChange = this.handleFoodChange.bind(this);
     }
-  
+
     componentDidMount() {
         this.handleSubmit();
     }
@@ -39,22 +40,41 @@ class DatePlanner extends Component {
 
     handleSubmit = async (event) => {
         if (event) {
-          event.preventDefault();
+            event.preventDefault();
         }
         try {
 
             this.setState({ loading: true, error: null });
-            const response = await axios.get(`${process.env.REACT_APP_SERVER}/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=tacos`) 
-                console.log(response.data.businesses);
-                console.log(`${process.env.REACT_APP_SERVER}/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=tacos`);
-            
+            const response = await axios.get(`${process.env.REACT_APP_SERVER}/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=${this.state.value}`)
+            console.log(response.data.businesses);
+            console.log(`${process.env.REACT_APP_SERVER}/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=tacos`);
+
             this.setState({ yelpData: response.data.businesses, loading: false });
 
         } catch (error) {
-          this.setState({ error: error.message, loading: false });
+            this.setState({ error: error.message, loading: false });
         }
-      };
-      
+    };
+
+    handleChange = (val) => {
+        console.log(val);
+        this.setState({ value: val });
+        // this.props.getSelectedMovie(val);
+    };
+
+    postLog = async (business) => {
+        const date = new Date();
+        let movieObj = {
+            date: `Went out on ${date.toDateString()}`,
+            bushinessName: business.name,
+            bushinessPrice: business.price,
+            bushinessUrl: business.url,
+            fav:0
+        }
+
+        await axios.post(`${process.env.REACT_APP_SERVER}/memories`, movieObj);
+        console.log('Memories saved successfully')
+    }
 
 
     render() {
@@ -71,7 +91,7 @@ class DatePlanner extends Component {
         return (
             <div className="form-container">
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="formLocation">
+                    {/* <Form.Group controlId="formLocation">
                         <Form.Label>Location</Form.Label>
                         <Form.Control
                             type="text"
@@ -79,13 +99,14 @@ class DatePlanner extends Component {
                             value={this.state.location}
                             onChange={this.handleLocationChange}
                         />
-                    </Form.Group>
+                    </Form.Group> */}
                     <Form.Group controlId="formFood">
                         <Form.Label>Food</Form.Label>
                         <Form.Control
                             as="select"
                             value={this.state.food}
-                            onChange={this.handleFoodChange}
+                            // onChange={this.handleFoodChange} 
+                            onChange={(e) => this.handleChange(e.target.value)}
                         >
                             <option value="">Select cuisine</option>
                             <option value="pizza">Pizza</option>
@@ -106,24 +127,29 @@ class DatePlanner extends Component {
                 {yelpData && yelpData.length > 0 && (
                     <div className="mt-3">
                         {/* <h3>Results</h3> */}
-                        <Carousel>
+                        <Carousel >
                             {yelpData.map((business, index) => (
                                 <Carousel.Item key={index}>
                                     <img
                                         className="d-block w-100"
                                         src={business.image_url}
                                         alt={business.name}
+                                        onChange={(e) => console.log(e)}
                                     />
                                     <Carousel.Caption className="caption-contain">
-                                        <h5 style={{textShadow: '0px 0px 3px black'}}>{business.name}</h5>
-                                        <p style={{textShadow: '0px 0px 3px black'}}>{business.location.address1}</p>
-                                        <p style={{textShadow: '0px 0px 3px black'}}>Rating: {business.rating}</p>
-                                        <p style={{textShadow: '0px 0px 3px black'}}>Price: {business.price}</p>
-                                        <a href={business.url}>View on Yelp</a>
                                     </Carousel.Caption>
+                                    <div className="text-center">
+                                        <h5 style={{ textShadow: '0px 0px 3px black' }}>{business.name}</h5>
+                                        <p style={{ textShadow: '0px 0px 3px black' }}>{business.location.address1}</p>
+                                        <p style={{ textShadow: '0px 0px 3px black' }}>Rating: {business.rating}</p>
+                                        <p style={{ textShadow: '0px 0px 3px black' }}>Price: {business.price}</p>
+                                        <p><a href={business.url}>View on Yelp</a></p>
+                                        <Button variant="primary" onClick={() => this.postLog(business)}>Log</Button>
+                                    </div>
                                 </Carousel.Item>
                             ))}
                         </Carousel>
+
                     </div>
                 )}
             </div>
