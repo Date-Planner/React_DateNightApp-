@@ -58,7 +58,10 @@ class DatePlanner extends Component {
 
     handleChange = (val) => {
         console.log(val);
-        this.setState({ value: val });
+        this.setState({ 
+            value: val,
+            food: val,
+         });
     };
 
     postLog = async (business) => {
