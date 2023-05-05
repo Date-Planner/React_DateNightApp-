@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Form, Button, Carousel, ListGroup } from 'react-bootstrap';
+import { Form, Button, Carousel } from 'react-bootstrap';
 import { FaSpinner } from 'react-icons/fa';
 
 class DatePlanner extends Component {
@@ -43,8 +43,9 @@ class DatePlanner extends Component {
         }
         try {
             this.setState({ loading: true, error: null });
-            const response = await axios.get(`http://localhost:3002/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=tacos`) 
+            const response = await axios.get(`${process.env.REACT_APP_SERVER}/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=tacos`) 
                 console.log(response.data.businesses);
+                console.log(`${process.env.REACT_APP_SERVER}/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=tacos`);
             
             this.setState({ yelpData: response.data.businesses, loading: false });
         } catch (error) {
