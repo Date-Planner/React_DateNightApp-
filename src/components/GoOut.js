@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Form, Button, Carousel } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { FaSpinner } from 'react-icons/fa';
+import "./GoOut.css";
 
 class DatePlanner extends Component {
     constructor(props) {
@@ -22,8 +25,6 @@ class DatePlanner extends Component {
     }
   
     componentDidMount() {
-        // this.handleFoodChange();
-        // this.handleTimeChange();
         this.handleSubmit();
     }
 
@@ -36,23 +37,26 @@ class DatePlanner extends Component {
     }
 
 
-
     handleSubmit = async (event) => {
         if (event) {
-            event.preventDefault();
+          event.preventDefault();
         }
         try {
+
             this.setState({ loading: true, error: null });
             const response = await axios.get(`${process.env.REACT_APP_SERVER}/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=tacos`) 
                 console.log(response.data.businesses);
                 console.log(`${process.env.REACT_APP_SERVER}/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=tacos`);
             
             this.setState({ yelpData: response.data.businesses, loading: false });
+
         } catch (error) {
-            this.setState({ error: error.message, loading: false });
+          this.setState({ error: error.message, loading: false });
         }
-    };
-    
+      };
+      
+
+
     render() {
         const { yelpData, loading, error } = this.state;
 
@@ -65,7 +69,7 @@ class DatePlanner extends Component {
         }
 
         return (
-            <div>
+            <div className="form-container">
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="formLocation">
                         <Form.Label>Location</Form.Label>
@@ -101,7 +105,7 @@ class DatePlanner extends Component {
 
                 {yelpData && yelpData.length > 0 && (
                     <div className="mt-3">
-                        <h3>Results</h3>
+                        {/* <h3>Results</h3> */}
                         <Carousel>
                             {yelpData.map((business, index) => (
                                 <Carousel.Item key={index}>
@@ -110,11 +114,11 @@ class DatePlanner extends Component {
                                         src={business.image_url}
                                         alt={business.name}
                                     />
-                                    <Carousel.Caption>
-                                        <h5>{business.name}</h5>
-                                        <p>{business.location.address1}</p>
-                                        <p>Rating: {business.rating}</p>
-                                        <p>Price: {business.price}</p>
+                                    <Carousel.Caption className="caption-contain">
+                                        <h5 style={{textShadow: '0px 0px 3px black'}}>{business.name}</h5>
+                                        <p style={{textShadow: '0px 0px 3px black'}}>{business.location.address1}</p>
+                                        <p style={{textShadow: '0px 0px 3px black'}}>Rating: {business.rating}</p>
+                                        <p style={{textShadow: '0px 0px 3px black'}}>Price: {business.price}</p>
                                         <a href={business.url}>View on Yelp</a>
                                     </Carousel.Caption>
                                 </Carousel.Item>

@@ -1,0 +1,36 @@
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0069d9;
+}
+
+.error {
+  color: red;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.carousel-container {
+  max-width: 700px;
+  margin: 200px auto;
+  padding: 20px;
+}
+
+
+.caption-container {
+  text-shadow: 1px 1px 2px black;
+}
