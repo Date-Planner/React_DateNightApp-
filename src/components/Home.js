@@ -39,7 +39,7 @@ class Home extends React.Component {
               </Col>
               <Col md={8} className="text-center mb-4">
                 <h3>Step 2</h3>
-                <p>Choose between our two main options: <strong>Go Out or Stay In</strong></p>
+                <p>Choose between our two main options: <strong>Go Out or Stay In.</strong></p>
               </Col>
             </Row>
             <Row className="align-items-center">
