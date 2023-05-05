@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Form, Button, Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { FaSpinner } from 'react-icons/fa';
 import "./GoOut.css";
 
@@ -41,12 +42,14 @@ class DatePlanner extends Component {
           event.preventDefault();
         }
         try {
-          this.setState({ loading: true, error: null });
-          console.log('++++++++++++++++++++++++++++++++++', this.props.location.lat);
-          console.log('----------------------------------', this.props.location.lon);
-          const response = await axios.get(`http://localhost:3002/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=`) 
-          console.log(response.data.businesses);
-          this.setState({ yelpData: response.data.businesses, loading: false });
+
+            this.setState({ loading: true, error: null });
+            const response = await axios.get(`${process.env.REACT_APP_SERVER}/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=tacos`) 
+                console.log(response.data.businesses);
+                console.log(`${process.env.REACT_APP_SERVER}/go-out-food?lat=${this.props.location.lat}&lon=${this.props.location.lon}&foodType=tacos`);
+            
+            this.setState({ yelpData: response.data.businesses, loading: false });
+
         } catch (error) {
           this.setState({ error: error.message, loading: false });
         }

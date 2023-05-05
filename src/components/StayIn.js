@@ -71,6 +71,8 @@ class StayIn extends Component {
     }
 
     render() {
+        const { movieOptions, randomMovie, appRecipe, mainRecipe, dessertRecipe } = this.state
+        // const trigger = (movieOptions ||  randomMovie || appRecipe || mainRecipe || dessertRecipe) ? true : false
         return (
             <>
                 <Container fluid className="d-flex flex-column justify-content-center align-items-center" style={{ height: '30vh' }}>
@@ -87,15 +89,15 @@ class StayIn extends Component {
                             qType={'movie'}
                             prompt={<Form.Label style={{ fontSize: 'large' }}>See a movie?</Form.Label>}
                             initialSelection={'Select Genre'}
-                            selection={this.state.movieOptions}
+                            selection={movieOptions}
                             getSelectedMovie={this.getMovieChoice}
                         />
                     </div>
                     <FormQuestionV2 getMealSelection={this.getMealChoice} />
+                </Form>
                     <div className="text-center">
                         <Button variant="primary" type="submit">PLAN DATE</Button>
                     </div>
-                </Form>
                 <Container className="container">
                     {
                         this.state.randomMovie ?
@@ -103,20 +105,24 @@ class StayIn extends Component {
                                 <Col md="4">
                                     <Card className="card">
                                         <Card.Body>
-                                            <Card.Title>{this.state.randomMovie.title}</Card.Title>sdg
-                                            <Card.Img variant="top" src={this.state.randomMovie.poster} alt={'movie poster for ' + this.state.randomMovie.title} />
-                                            <Card.Text>{this.state.randomMovie.description}</Card.Text>
+                                            <Card.Title>{randomMovie.title}</Card.Title>sdg
+                                            <Card.Img variant="top" src={randomMovie.poster} alt={'movie poster for ' + randomMovie.title} />
+                                            <Card.Text>{randomMovie.description}</Card.Text>
                                         </Card.Body>
                                     </Card>
                                 </Col>
                             </Row>
                             : null}
                     <Row className="justify-content-center align-items-center">
-                        {this.state.appRecipe ? <RecipeCard recipe={this.state.appRecipe} copyText={this.copyText}></RecipeCard> : null}
-                        {this.state.mainRecipe ? <RecipeCard recipe={this.state.mainRecipe} copyText={this.copyText}></RecipeCard> : null}
-                        {this.state.dessertRecipe ? <RecipeCard recipe={this.state.dessertRecipe} copyText={this.copyText}></RecipeCard> : null}
+                        {appRecipe ? <RecipeCard recipe={appRecipe} copyText={this.copyText}></RecipeCard> : null}
+                        {mainRecipe ? <RecipeCard recipe={mainRecipe} copyText={this.copyText}></RecipeCard> : null}
+                        {dessertRecipe ? <RecipeCard recipe={dessertRecipe} copyText={this.copyText}></RecipeCard> : null}
+                    </Row>
+                    <Row className="justify-content-center align-items-center">
+                        <Button variant="primary" onClick={() => { }}>Log</Button>
                     </Row>
                 </Container>
+
             </>
 
         );
