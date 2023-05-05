@@ -45,7 +45,7 @@ class Home extends React.Component {
               </Col>
               <Col md={8} className="text-center mb-4">
                 <h3>Step 2</h3>
-                <p>Choose between our two main options: <Link to="/go-out">Go Out</Link> or <Link to="/stay-in">Stay In</Link>.</p>
+                <p>Choose between our two main options: <strong>Go Out or Stay In</strong></p>
               </Col>
             </Row>
             <Row className="align-items-center">
@@ -54,7 +54,7 @@ class Home extends React.Component {
               </Col>
               <Col md={8} className="text-center mb-4">
                 <h3>Step 3</h3>
-                <p>Browse our carefully curated selection of ideas for your chosen option and plan your perfect date night!</p>
+                <p>Browse our curated selection of ideas for your chosen option and plan your perfect date night!</p>
               </Col>
             </Row>
             <p className="text-center mb-4">So what are you waiting for? Let's get started and make tonight a night to remember!</p>
