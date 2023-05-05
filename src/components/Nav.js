@@ -2,7 +2,7 @@ import './nav.css';
 import React from 'react';
 import { Navbar, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-// import sweetspotlogo from './images/SweetSpotLogo.png'
+import navlogo from './images/navlogo.png'
 
 // add icons
 import { FaHome } from "react-icons/fa";
@@ -17,11 +17,10 @@ class Nav extends React.Component {
       <div className="nav-bar">
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <div className="nav-items">
-          {/* <Navbar.Brand><img src={sweetspotlogo} alt="Sweet Spot Logo" className="nav-logo" /></Navbar.Brand> */}
+            {/* <NavItem><Link to="/" style={{ color: 'black' }} className="nav-link"><img src={navlogo} alt='navlogo'/></Link></NavItem> */}           
             <NavItem><Link to="/" style={{ color: 'black' }} className="nav-link"><FaHome /></Link></NavItem>
             <NavItem><Link to="weather" style={{ color: 'black' }} className="nav-link"><WiDayCloudy /></Link></NavItem>
             <NavItem><Link to="memories" style={{ color: 'black' }} className="nav-link"><FaPhotoVideo /></Link></NavItem>
-            <NavItem><Link to="profile" style={{ color: 'black' }} className="nav-link"><FaRegUserCircle /></Link></NavItem>
             <NavItem><Link to="team" style={{ color: 'black' }} className="nav-link"><FaUsers /></Link></NavItem>
           </div>
         </Navbar>
